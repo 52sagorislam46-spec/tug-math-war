@@ -1,4 +1,4 @@
-import { PULL_TARGET, type Match } from '@/lib/game';
+import { type Match } from '@/lib/game';
 function Puller({ x, red = false, variant = 0 }: { x: number; red?: boolean; variant?: number }) {
   return <g transform={`translate(${x} ${variant * 3})`} className={`puller ${red ? 'puller-red' : ''}`}>
     <path d="M-12 245 L-25 279 L-48 286" className="character-limb" />
