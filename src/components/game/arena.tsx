@@ -19,7 +19,7 @@ export function Arena({ match, solo = false }: { match: Match; solo?: boolean })
   const difference = match.players[1].score - match.players[0].score;
   const displacement = difference * 13;
   return <div className={`arena-illustration ${match.status === 'playing' ? 'arena-active' : ''}`}>
-    <svg viewBox="0 0 640 380" role="img" aria-label={solo ? `Solo tug of war arena. You have pulled ${match.players[0].score} of ${PULL_TARGET} correct answers.` : `Tug of war arena, Team 1 ${match.players[0].score}, Team 2 ${match.players[1].score}`}>
+    <svg viewBox="0 0 640 380" role="img" aria-label={solo ? `Solo tug of war arena. You have answered ${match.players[0].score} correctly.` : `Tug of war arena, Team 1 ${match.players[0].score}, Team 2 ${match.players[1].score}`}>
       <defs><pattern id="rope-pattern" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0 L8 8 M-4 4 L4 12" className="rope-fiber" /></pattern></defs>
       <path d="M0 275 Q80 230 155 263 Q235 214 327 260 Q434 203 530 251 Q591 225 640 251 V380 H0Z" className="hill-back" />
       <path d="M0 303 Q137 261 240 301 Q350 247 469 294 Q564 255 640 284 V380 H0Z" className="hill-front" />
