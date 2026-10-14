@@ -15,7 +15,7 @@ export const Route = createFileRoute('/bcs')({
   component: BcsQuiz,
 });
 
-const bn = (n: number) => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[Number(d)]);
+const bn = (n: number) => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'.charAt(Number(d)));
 
 function BcsQuiz() {
   const [status, setStatus] = useState<'ready' | 'playing' | 'finished'>('ready');
@@ -28,6 +28,7 @@ function BcsQuiz() {
   const start = () => { setQuestions(pickRound()); setIndex(0); setSelected(null); setRemaining(QUESTION_TIME); setResults([]); setStatus('playing'); };
   const advance = (chosen: number | null) => {
     const q = questions[index];
+    if (!q) return;
     setResults(prev => [...prev, grade(q, chosen)]);
     setSelected(null); setRemaining(QUESTION_TIME);
     if (index + 1 >= questions.length) setStatus('finished'); else setIndex(index + 1);
