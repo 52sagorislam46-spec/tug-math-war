@@ -63,7 +63,7 @@ export const optionLabel = (i: number) => labels[i];
 
 export function pickRound(size = ROUND_SIZE, rand = Math.random): BcsQuestion[] {
   const pool = [...bcsQuestions];
-  for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+  for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); const tmp = pool[i]!; pool[i] = pool[j]!; pool[j] = tmp; }
   return pool.slice(0, Math.min(size, pool.length));
 }
 
