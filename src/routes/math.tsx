@@ -8,7 +8,7 @@ import { Arena } from '@/components/game/arena';
 import { PlayerPanel } from '@/components/game/player-panel';
 import { formatTime, matchReducer, newMatch, PULL_TARGET, type Difficulty, type Operation, type RecordMatch, type Settings } from '@/lib/game';
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/math')({
   head: () => ({ meta: [
     { title: 'Tug of Math — Tug of War: Mathematics' },
     { name: 'description', content: 'A friendly two-player mathematics showdown. Pick your challenge, race to solve, and pull your team to victory.' },
