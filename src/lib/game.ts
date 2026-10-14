@@ -47,7 +47,7 @@ export function matchReducer(state: Match, action: Action): Match {
   } else if (/^\d$/.test(action.key) && player.input.length < 5) player.input += action.key;
   players[action.team] = player;
   const difference = players[0].score - players[1].score;
-  const pulled = Math.abs(difference) >= PULL_TARGET;
+  const pulled = action.settings.mode !== 'solo' && Math.abs(difference) >= PULL_TARGET;
   return { ...state, players, status: pulled ? 'finished' : state.status, winner: pulled ? difference > 0 ? 0 : 1 : null, reason: pulled ? 'pull' : state.reason };
 }
 export const formatTime = (seconds: number) => `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;

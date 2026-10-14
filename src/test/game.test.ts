@@ -36,17 +36,19 @@ describe('math rules', () => {
     expect(matchReducer(state, { type: 'input', team: 1, key: '1', settings })).toEqual(state);
   });
 
-  it('is winnable by one player pulling alone', () => {
+  it('lets a solo player keep scoring past the pull target until time runs out', () => {
     const solo: Settings = { ...settings, mode: 'solo' };
     let state = { ...newMatch(solo), status: 'playing' as const } as ReturnType<typeof newMatch>;
-    for (let i = 0; i < PULL_TARGET; i++) {
+    for (let i = 0; i < PULL_TARGET + 2; i++) {
       for (const key of String(state.players[0].problem.answer)) state = matchReducer(state, { type: 'input', team: 0, key, settings: solo });
       state = matchReducer(state, { type: 'input', team: 0, key: 'enter', settings: solo });
     }
-    expect(state.players[0].score).toBe(PULL_TARGET);
+    expect(state.players[0].score).toBe(PULL_TARGET + 2);
     expect(state.players[1].score).toBe(0);
+    expect(state.status).toBe('playing');
+    state = matchReducer({ ...state, remaining: 1 }, { type: 'tick' });
     expect(state.status).toBe('finished');
     expect(state.winner).toBe(0);
-    expect(state.reason).toBe('pull');
+    expect(state.reason).toBe('time');
   });
 });
