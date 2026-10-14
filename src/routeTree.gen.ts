@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BcsRouteImport } from './routes/bcs'
+import { Route as MathRouteImport } from './routes/math'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BcsRoute = BcsRouteImport.update({
+  id: '/bcs',
+  path: '/bcs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MathRoute = MathRouteImport.update({
+  id: '/math',
+  path: '/math',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bcs': typeof BcsRoute
+  '/math': typeof MathRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bcs': typeof BcsRoute
+  '/math': typeof MathRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bcs': typeof BcsRoute
+  '/math': typeof MathRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bcs' | '/math'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bcs' | '/math'
+  id: '__root__' | '/' | '/bcs' | '/math'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BcsRoute: typeof BcsRoute
+  MathRoute: typeof MathRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bcs': {
+      id: '/bcs'
+      path: '/bcs'
+      fullPath: '/bcs'
+      preLoaderRoute: typeof BcsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/math': {
+      id: '/math'
+      path: '/math'
+      fullPath: '/math'
+      preLoaderRoute: typeof MathRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BcsRoute: BcsRoute,
+  MathRoute: MathRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
